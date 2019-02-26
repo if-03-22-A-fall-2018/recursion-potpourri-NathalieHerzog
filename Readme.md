@@ -17,12 +17,12 @@ Yet, you do not know how big the array has to be at compile time.
 The solution to this problem is to calculate the size required on the fly based on the input array size and then allocate an array big enough to hold all sums.
 The formular for this is luckily very easy: `2^n`
 
-So you only have to implement a recursive function to calculate the a number raised to the power of n (because you must not use the function provided in math.h).
+So you only have to implement a recursive function to calculate the number raised to the power of n (because you must not use the function provided in math.h).
 
 ## Represent a decimal number in binary
 Decimal numbers are boring.
 In addition to calculating the subset sums we'll also represent them in their binary format.
-To simply things we won't use actual bits (bit array) but just create an integer which looks like the correct binary representation (even ignoring leading 0s).
+To simplify things we won't use actual bits (bit array) but just create an integer which looks like the correct binary representation (even ignoring leading 0s).
 
 For example: the number `9` would become `1001`
 
