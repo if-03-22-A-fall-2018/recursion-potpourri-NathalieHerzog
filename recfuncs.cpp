@@ -12,19 +12,12 @@ int calc_array_size(int i)
 
 int convert_to_binary(int n)
 {
-  int binary = 0;
-  int temp;
-  int i = 1;
-
-  while (n != 0)
+  if(n == 0)
   {
-    temp = n % 2;
-    n /= 2;
-    binary += temp * i;
-    i *= 10;
+    return 0;
   }
 
-  return binary;
+  return n % 2 + 10 * convert_to_binary(n / 2);
 }
 
 int *create_array(int size)
@@ -42,35 +35,40 @@ int *create_array(int size)
 
 int calc_factorial(int n)
 {
-  int facto = 1;
-
-  for (int i = 0; i < n - 1; i++)
+  if (n < 2)
   {
-    facto *= n - i;
+    return 1;
   }
 
-  return facto;
+  return n * calc_factorial(n - 1);
 }
 
-void test(int *nums, int size, int index, int sum, int *out_arr)
+int test(int *nums, int size, int index, int arrIndex, int sum, int *out_arr, int *out_arr_bin)
 {
   if (index > size)
   {
-    out_arr[index] = sum;
-    return;
+    out_arr[arrIndex] = sum;
+    out_arr_bin[arrIndex] = convert_to_binary(out_arr[arrIndex]);
+    return ++arrIndex;
   }
 
-  test(nums, size, index + 1, sum + nums[index], out_arr);
+  int newIndex = test(nums, size, index + 1, arrIndex, sum+nums[index], out_arr, out_arr_bin);
+  test(nums, size, index + 1, newIndex, sum, out_arr, out_arr_bin);
 }
 
 void calc_sums(int *nums, int n, int *out_arr, int *out_arr_bin)
 {
-  test(nums, n - 1, 0, 0, out_arr);
+  test(nums, n - 1, 0, 0, 0, out_arr, out_arr_bin);
 }
 
 CalculationResults perform_calculations(int *nums, int n)
 {
   CalculationResults temp;
+
+  temp.no_of_nums = n;
+  temp.no_of_sums = n + n;
+
+  temp.num_factorials[n] = calc_factorial(nums[n]);
 
   return temp;
 }
